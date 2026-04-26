@@ -33,9 +33,9 @@ export default function Footer() {
               <Image
                 src="/norvik-logo-white.png"
                 alt="Norvik Intelligence"
-                width={110}
-                height={36}
-                className="h-7 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                width={160}
+                height={52}
+                className="h-9 w-auto opacity-80 hover:opacity-100 transition-opacity"
               />
             </a>
             <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">

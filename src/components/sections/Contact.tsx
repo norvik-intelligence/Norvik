@@ -35,10 +35,27 @@ export default function Contact() {
     resolver: zodResolver(schema),
   });
 
+  const CONTACT_EMAIL = "mohamed.jamai.norvik@gmail.com";
+
   const onSubmit = async (data: FormData) => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1400));
-    console.log("Inquiry:", data);
+    await new Promise((r) => setTimeout(r, 600));
+
+    const subject = encodeURIComponent(
+      `Norvik Intelligence Inquiry — ${data.company ? data.company : data.name}`
+    );
+    const body = encodeURIComponent(
+      [
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        `Company: ${data.company || "—"}`,
+        ``,
+        `Mandate Brief:`,
+        data.message,
+      ].join("\n")
+    );
+
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
     setLoading(false);
     setSubmitted(true);
   };
@@ -61,6 +78,13 @@ export default function Contact() {
             Tell us about your mandate — market, competitive or M&A intelligence.
             We respond within one business day.
           </p>
+          <a
+            href="mailto:mohamed.jamai.norvik@gmail.com"
+            className="mt-4 inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+            mohamed.jamai.norvik@gmail.com
+          </a>
         </motion.div>
 
         <motion.div
@@ -84,8 +108,14 @@ export default function Contact() {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">Inquiry received</h3>
                 <p className="text-slate-400 leading-relaxed max-w-sm">
-                  Thank you for reaching out. We will review your mandate brief and
-                  respond within one business day.
+                  Your email client should have opened with a pre-filled inquiry.
+                  If not, reach us directly at{" "}
+                  <a
+                    href="mailto:mohamed.jamai.norvik@gmail.com"
+                    className="text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    mohamed.jamai.norvik@gmail.com
+                  </a>
                 </p>
               </motion.div>
             ) : (

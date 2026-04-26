@@ -212,7 +212,7 @@ export default function Hero() {
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button size="lg" asChild>
-            <a href="#contact" className="group">
+            <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence" className="group">
               Book a Strategic Call
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
             </a>

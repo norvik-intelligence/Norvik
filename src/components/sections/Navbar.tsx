@@ -41,9 +41,9 @@ export default function Navbar() {
             <Image
               src="/norvik-logo-white.png"
               alt="Norvik Intelligence"
-              width={120}
-              height={40}
-              className="h-7 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+              width={180}
+              height={60}
+              className="h-10 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-200"
               priority
             />
           </a>
@@ -63,7 +63,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             <Button size="default" asChild>
-              <a href="#contact">Book a Call</a>
+              <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence">Book a Call</a>
             </Button>
           </div>
 
@@ -99,7 +99,7 @@ export default function Navbar() {
               ))}
               <div className="pt-2 pb-1">
                 <Button className="w-full" asChild>
-                  <a href="#contact" onClick={() => setMobileOpen(false)}>Book a Call</a>
+                  <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence" onClick={() => setMobileOpen(false)}>Book a Call</a>
                 </Button>
               </div>
             </div>
