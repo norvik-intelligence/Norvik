@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 const clientTypes = [
   "Private Equity",
   "Family Offices",
-  "M&A Advisory",
-  "Founder-led B2B",
-  "Growth-Stage SaaS",
-  "Deal Teams",
-  "Strategy Consulting",
+  "M&A-Beratung",
+  "Gründer-geführtes B2B",
+  "Wachstumsstarke SaaS",
+  "Deal-Teams",
+  "Strategieberatung",
   "Corporate Development",
 ];
 
@@ -24,7 +24,7 @@ export default function TrustedBy() {
           transition={{ duration: 0.5 }}
           className="text-center text-[11px] font-semibold tracking-[0.2em] text-slate-600 uppercase mb-10"
         >
-          Built for decision-makers in
+          Gebaut für Entscheidungsträger in
         </motion.p>
 
         <div className="relative">
@@ -35,10 +35,8 @@ export default function TrustedBy() {
             <div className="animate-marquee flex items-center gap-12 shrink-0">
               {[...clientTypes, ...clientTypes].map((name, i) => (
                 <div key={i} className="shrink-0 flex items-center gap-3">
-                  <div className="w-1 h-1 rounded-full bg-blue-500/50" />
-                  <span className="text-slate-600 font-semibold text-sm whitespace-nowrap select-none">
-                    {name}
-                  </span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500/40" />
+                  <span className="text-sm font-semibold text-slate-500 whitespace-nowrap">{name}</span>
                 </div>
               ))}
             </div>
