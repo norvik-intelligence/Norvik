@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, FileText, BarChart3, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/* ── Floating 3D document card ─────────────────────────────────────── */
+/* ── Schwebende 3D-Dokumentkarte ──────────────────────────────────── */
 interface DocCardProps {
   title: string;
   tag: string;
@@ -33,17 +33,17 @@ function DocCard({ title, tag, icon: Icon, iconColor, iconBg, lines, statusColor
           <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${iconBg}`}>
             <Icon size={13} className={iconColor} />
           </div>
-          <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">{tag}</span>
+          <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">{tag}</span>
         </div>
-        <p className="text-xs font-medium text-slate-300 leading-snug mb-4">{title}</p>
-        <div className="space-y-2">
+        <p className="text-[11px] font-semibold text-slate-200 leading-snug mb-3">{title}</p>
+        <div className="space-y-1.5 mb-4">
           {lines.map((w, i) => (
-            <div key={i} className="h-1 rounded-full bg-blue-400/12" style={{ width: `${w}%` }} />
+            <div key={i} className="h-1.5 rounded-full bg-slate-700/60" style={{ width: `${w}%` }} />
           ))}
         </div>
-        <div className="mt-4 pt-3 border-t border-white/4 flex items-center justify-between">
-          <span className="text-[10px] text-slate-600">Norvik Intelligence</span>
-          <span className={`text-[10px] font-medium ${statusColor}`}>● {status}</span>
+        <div className="flex items-center justify-between">
+          <span className="text-[9px] text-slate-600">Norvik Intelligence</span>
+          <span className={`text-[9px] font-medium ${statusColor}`}>● {status}</span>
         </div>
       </div>
     </motion.div>
@@ -52,40 +52,40 @@ function DocCard({ title, tag, icon: Icon, iconColor, iconBg, lines, statusColor
 
 const docCards: DocCardProps[] = [
   {
-    title: "Competitive Narrative Analysis — SaaS ERP Segment, DACH",
-    tag: "Competitive",
+    title: "Wettbewerbs-Narrativanalyse — SaaS-ERP-Segment, DACH",
+    tag: "Wettbewerb",
     icon: BarChart3,
     iconColor: "text-blue-400",
     iconBg: "bg-blue-500/15",
     lines: [85, 60, 90, 40],
     statusColor: "text-green-400/80",
-    status: "Delivered",
+    status: "Geliefert",
     floatClass: "float-a",
     posClass: "top-[22%] right-[7%]",
     delay: 0.8,
   },
   {
-    title: "M&A Market Due Diligence — Industrial Automation Target",
+    title: "M&A-Markt Due Diligence — Industrieautomatisierungsziel",
     tag: "Due Diligence",
     icon: Search,
     iconColor: "text-purple-400",
     iconBg: "bg-purple-500/15",
     lines: [70, 95, 55, 80],
     statusColor: "text-blue-400/80",
-    status: "In Progress",
+    status: "In Bearbeitung",
     floatClass: "float-b",
     posClass: "bottom-[28%] right-[3%]",
     delay: 1.1,
   },
   {
-    title: "Strategic Market Insight — B2B SaaS Segment Validation",
-    tag: "Market Intel",
+    title: "Strategische Marktanalyse — B2B-SaaS-Segmentvalidierung",
+    tag: "Markt-Intel",
     icon: FileText,
     iconColor: "text-cyan-400",
     iconBg: "bg-cyan-500/15",
     lines: [90, 65, 75],
     statusColor: "text-green-400/80",
-    status: "Delivered",
+    status: "Geliefert",
     floatClass: "float-c",
     posClass: "top-[40%] left-[1%]",
     delay: 1.3,
@@ -94,163 +94,125 @@ const docCards: DocCardProps[] = [
 
 /* ── Hero ───────────────────────────────────────────────────────────── */
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  const y       = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#060E1D]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20"
     >
-      {/* ── Background layer ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Glow orbs */}
-        <div
-          className="absolute top-[20%] left-[35%] -translate-x-1/2 w-[700px] h-[600px] rounded-full glow-pulse"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)" }}
-        />
-        <div
-          className="absolute bottom-[15%] right-[20%] w-[450px] h-[450px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)",
-            animation: "glowPulse 12s ease-in-out infinite 3s",
-          }}
-        />
+      {/* ── Hintergrundebene ── */}
+      <div className="absolute inset-0 bg-[#030812]" />
 
-        {/* Dot-grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.18]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(148,163,184,0.8) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
+      {/* Leuchtkugeln */}
+      <div className="absolute top-[-20%] left-[10%] w-[600px] h-[600px] rounded-full bg-blue-600/8 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[5%] w-[500px] h-[500px] rounded-full bg-indigo-600/6 blur-[100px] pointer-events-none" />
 
-        {/* Perspective grid floor */}
-        <div className="absolute bottom-0 left-0 right-0 h-[45vh] overflow-hidden">
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              left: "-60%",
-              right: "-60%",
-              height: "220%",
-              backgroundImage:
-                "linear-gradient(rgba(59,130,246,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.18) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
-              transform: "perspective(500px) rotateX(65deg)",
-              transformOrigin: "bottom center",
-              opacity: 0.45,
-            }}
-          />
-        </div>
+      {/* Punktgitter-Overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#060E1D] to-transparent" />
-        {/* Side fades */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#060E1D] to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#060E1D] to-transparent" />
-      </div>
+      {/* Perspektivisches Gitter */}
+      <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-[linear-gradient(to_top,#030812,transparent)] pointer-events-none" />
 
-      {/* ── Floating doc cards ── */}
-      <motion.div style={{ y, opacity }} className="absolute inset-0">
-        {docCards.map((card) => (
-          <DocCard key={card.title} {...card} />
-        ))}
-      </motion.div>
+      {/* Seitliche Verbländungen */}
+      <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#030812] to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#030812] to-transparent pointer-events-none" />
 
-      {/* ── Main content ── */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      {/* ── Schwebende Dokumentkarten ── */}
+      {docCards.map((card) => (
+        <DocCard key={card.title} {...card} />
+      ))}
+
+      {/* ── Hauptinhalt ── */}
+      <motion.div style={{ y, opacity }} className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/8 text-blue-300 text-xs font-semibold tracking-widest uppercase mb-8"
         >
-          <span className="section-label">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            Intelligence Studio · DACH
-          </span>
+          Intelligence Studio · DACH
         </motion.div>
 
-        {/* Headline */}
+        {/* Überschrift */}
         <motion.h1
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-          className="text-5xl sm:text-6xl lg:text-7xl xl:text-[82px] font-bold text-white leading-[1.04] tracking-[-0.02em]"
+          transition={{ delay: 0.45, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-6"
         >
-          Strategic intelligence
+          Strategische Intelligenz{" "}
           <br />
-          for{" "}
-          <span className="text-gradient">high-stakes</span>
+          für{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400">
+            weitreichende
+          </span>{" "}
           <br />
-          decisions.
+          Entscheidungen.
         </motion.h1>
 
-        {/* Sub */}
+        {/* Untertext */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.22 }}
-          className="mt-8 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed"
+          transition={{ delay: 0.6, duration: 0.7 }}
+          className="text-lg sm:text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10"
         >
-          Norvik Intelligence delivers focused market, competitive and narrative
-          analysis for founders, investors and deal teams navigating growth,
-          positioning and transactions.
+          Norvik Intelligence liefert fokussierte Markt-, Wettbewerbs- und Narrativanalysen für Gründer, Investoren und Deal-Teams, die Wachstum, Positionierung und Transaktionen navigieren.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.34 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 0.75, duration: 0.6 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
-          <Button size="lg" asChild>
-            <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence" className="group">
-              Book a Strategic Call
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
+          <Button asChild size="lg" className="rounded-xl px-8">
+            <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence">
+              Strategiegespräch buchen
+              <ArrowRight size={16} className="ml-2" />
             </a>
           </Button>
-          <Button variant="outline" size="lg" asChild>
-            <a href="#services">View Intelligence Services</a>
+          <Button asChild variant="outline" size="lg" className="rounded-xl px-8">
+            <a href="#services">Intelligence-Leistungen ansehen</a>
           </Button>
         </motion.div>
 
-        {/* Stats */}
+        {/* Statistiken */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-20 grid grid-cols-3 gap-6 sm:gap-16 text-center max-w-md mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.95, duration: 0.8 }}
+          className="flex flex-wrap items-center justify-center gap-8 sm:gap-12"
         >
           {[
-            { v: "48h",  l: "Express Delivery" },
-            { v: "6",    l: "Intelligence Tiers" },
-            { v: "DACH", l: "Market Focus" },
+            { v: "48h", l: "Express-Lieferung" },
+            { v: "6", l: "Intelligence-Stufen" },
+            { v: "DACH", l: "Marktfokus" },
           ].map(({ v, l }) => (
-            <div key={l}>
-              <p className="text-3xl sm:text-4xl font-bold text-white tracking-tight">{v}</p>
-              <p className="mt-1 text-xs sm:text-sm text-slate-500">{l}</p>
+            <div key={l} className="text-center">
+              <p className="text-2xl font-bold text-white">{v}</p>
+              <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">{l}</p>
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Scroll cue */}
+      {/* Scroll-Hinweis */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ delay: 1.4, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600"
       >
-        <span className="text-[11px] text-slate-600 tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-slate-600 to-transparent" />
+        <div className="w-px h-8 bg-gradient-to-b from-transparent to-slate-600" />
+        <span className="text-[10px] uppercase tracking-[0.2em]">Scrollen</span>
       </motion.div>
     </section>
   );
