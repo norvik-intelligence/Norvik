@@ -7,45 +7,45 @@ const deliverables = [
   {
     icon: FileText,
     name: "Executive Briefing",
-    pages: "2–3 pages",
-    use: "Urgent board- or deal-level decisions",
-    detail: "Compact C-level format. Key findings, competitive signals and one clear recommendation. Built for speed.",
+    pages: "2-3 Seiten",
+    use: "Dringende Vorstands- oder Deal-Entscheidungen",
+    detail: "Kompaktes C-Suite-Format. Kernbefunde, Wettbewerbssignale und eine klare Empfehlung. Fuer Tempo entwickelt.",
     color: "text-blue-400",
     bg: "bg-blue-500/8",
   },
   {
     icon: File,
-    name: "Standard Intelligence Memo",
-    pages: "5–8 pages",
-    use: "Focused single-question analysis",
-    detail: "A defined fragestellung, systematically analyzed with market context, competitive benchmarks and strategic implications.",
+    name: "Standard-Intelligence-Memo",
+    pages: "5-8 Seiten",
+    use: "Fokussierte Einzelfragen-Analyse",
+    detail: "Eine definierte Fragestellung, systematisch analysiert mit Marktkontext, Wettbewerbs-Benchmarks und strategischen Implikationen.",
     color: "text-indigo-400",
     bg: "bg-indigo-500/8",
   },
   {
     icon: BookOpen,
-    name: "Premium Intelligence Memo",
-    pages: "10–15 pages",
-    use: "Deep market, competitive or narrative work",
-    detail: "Full analytical depth — segment mapping, narrative audit, competitive positioning review and actionable recommendations.",
+    name: "Premium-Intelligence-Memo",
+    pages: "10-15 Seiten",
+    use: "Tiefe Markt-, Wettbewerbs- oder Narrativarbeit",
+    detail: "Volle analytische Tiefe - Segment-Mapping, Narrativ-Audit, Wettbewerbspositionierungs-Review und handlungsreife Empfehlungen.",
     color: "text-violet-400",
     bg: "bg-violet-500/8",
   },
   {
     icon: Briefcase,
     name: "Commercial / Market DD Lite",
-    pages: "Scoped to mandate",
-    use: "Pre-acquisition or investment review",
-    detail: "An outside-in commercial layer: market attractiveness, competitive dynamics, positioning risk and narrative signals.",
+    pages: "Scope-abhaengig",
+    use: "Pre-Akquisitions- oder Investment-Review",
+    detail: "Eine Aussen-Commercial-Ebene: Marktattraktivitaet, Wettbewerbsdynamiken, Positionierungsrisiko und Narrativsignale.",
     color: "text-purple-400",
     bg: "bg-purple-500/8",
   },
   {
     icon: Layers,
-    name: "Deep Dive Mandate",
-    pages: "Custom scope",
-    use: "Complex strategic questions",
-    detail: "Multi-stage research engagements for larger strategic questions — market entry, category analysis or ongoing intelligence programs.",
+    name: "Deep-Dive-Mandat",
+    pages: "Individueller Scope",
+    use: "Komplexe strategische Fragen",
+    detail: "Mehrstufige Forschungsengagements fuer groessere strategische Fragen - Markteintritt, Kategorieanalyse oder laufende Intelligence-Programme.",
     color: "text-cyan-400",
     bg: "bg-cyan-500/8",
   },
@@ -53,65 +53,58 @@ const deliverables = [
 
 export default function Deliverables() {
   return (
-    <section className="py-24 lg:py-32 bg-[#060E1D]">
+    <section className="py-28 bg-[#030812]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl mb-16"
+          className="text-center mb-16"
         >
-          <span className="section-label">Deliverables</span>
-          <h2 className="mt-5 text-4xl sm:text-5xl font-bold text-white leading-tight tracking-tight">
-            Clear scope.<br />Usable formats.
+          <span className="inline-block text-[11px] font-semibold tracking-[0.2em] text-blue-400 uppercase mb-4">Deliverables</span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+            Klarer Scope. Nutzbare Formate.
           </h2>
-          <p className="mt-5 text-lg text-slate-400 leading-relaxed">
-            Norvik sells results, not hours. Every mandate delivers a concrete, written
-            intelligence output in German or English — as PDF, Word or PowerPoint.
+          <p className="text-slate-400 max-w-xl mx-auto">
+            Norvik verkauft Ergebnisse, keine Stunden. Jedes Mandat liefert einen konkreten, schriftlichen Intelligence-Output auf Deutsch oder Englisch - als PDF, Word oder PowerPoint.
           </p>
         </motion.div>
 
-        <div className="space-y-3">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
           {deliverables.map((d, i) => {
             const Icon = d.icon;
             return (
               <motion.div
-                key={d.name}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: i * 0.07, duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-                className="group flex flex-col sm:flex-row sm:items-center gap-5 rounded-2xl border border-white/5 bg-white/2 px-6 py-5 hover:border-white/10 hover:bg-white/3 transition-all duration-300"
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.6 }}
+                className="rounded-2xl border border-white/6 bg-[#0A1628]/40 p-6 hover:border-white/10 transition-colors"
               >
-                <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${d.bg}`}>
-                  <Icon size={20} className={d.color} />
+                <div className={`w-10 h-10 rounded-xl ${d.bg} flex items-center justify-center mb-4`}>
+                  <Icon size={18} className={d.color} />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="text-base font-semibold text-white">{d.name}</span>
-                    <span className="text-xs text-slate-600 border border-white/6 rounded-full px-2.5 py-0.5">{d.pages}</span>
-                  </div>
-                  <p className="mt-1 text-sm text-slate-500 leading-relaxed">{d.detail}</p>
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <h3 className="text-sm font-semibold text-white">{d.name}</h3>
+                  <span className="text-[10px] text-slate-500 shrink-0">{d.pages}</span>
                 </div>
-                <div className="shrink-0 hidden sm:block">
-                  <span className="text-xs text-slate-600 whitespace-nowrap">{d.use}</span>
-                </div>
+                <p className="text-xs text-slate-500 leading-relaxed mb-3">{d.detail}</p>
+                <span className="text-[10px] font-semibold text-blue-400/70 uppercase tracking-wider">{d.use}</span>
               </motion.div>
             );
           })}
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-8 flex flex-wrap gap-6 text-sm text-slate-600"
+          className="flex flex-wrap justify-center gap-3"
         >
-          {["Delivered as PDF, Word or PowerPoint", "German & English", "50 % upfront · 50 % on delivery", "Standard: 5–7 business days", "Express: 48–72 hours available"].map((item) => (
-            <span key={item} className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-blue-500/50" />
+          {["Als PDF, Word oder PowerPoint", "Deutsch & Englisch", "50% Vorauszahlung & 50% bei Lieferung", "Standard: 5-7 Werktage", "Express: 48-72 Stunden verfuegbar"].map((item) => (
+            <span key={item} className="px-4 py-2 rounded-full border border-white/8 bg-white/3 text-xs text-slate-400">
               {item}
             </span>
           ))}
