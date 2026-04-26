@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -36,13 +37,15 @@ export default function Navbar() {
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[#0066CC] flex items-center justify-center shadow-md group-hover:shadow-blue-300/50 transition-shadow duration-300">
-              <span className="text-white font-bold text-sm tracking-tight">N</span>
-            </div>
-            <span className="font-semibold text-[#1D1D1F] text-lg tracking-tight">
-              Norvik
-            </span>
+          <a href="#" className="flex items-center group">
+            <Image
+              src="/norvik-logo.png"
+              alt="Norvik"
+              width={120}
+              height={40}
+              className="h-8 w-auto transition-opacity duration-200 group-hover:opacity-80"
+              priority
+            />
           </a>
 
           {/* Desktop Nav */}

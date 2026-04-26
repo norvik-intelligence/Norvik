@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -6,14 +8,15 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#0066CC] flex items-center justify-center">
-              <span className="text-white font-bold text-xs">N</span>
-            </div>
-            <span className="font-semibold tracking-tight text-white">
-              Norvik
-            </span>
-          </div>
+          <a href="#" className="flex items-center opacity-90 hover:opacity-100 transition-opacity duration-200">
+            <Image
+              src="/norvik-logo-white.png"
+              alt="Norvik"
+              width={100}
+              height={34}
+              className="h-7 w-auto"
+            />
+          </a>
 
           {/* Links */}
           <nav className="flex items-center gap-6">
