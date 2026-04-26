@@ -1,39 +1,76 @@
 import Image from "next/image";
 
+const links = {
+  Services: [
+    { label: "Competitive Narrative", href: "#services" },
+    { label: "Strategic Market Insight", href: "#services" },
+    { label: "M&A Due Diligence Support", href: "#services" },
+    { label: "Custom Mandates", href: "#services" },
+  ],
+  Company: [
+    { label: "About", href: "#about" },
+    { label: "Process", href: "#process" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Contact", href: "#contact" },
+  ],
+  Legal: [
+    { label: "Impressum",      href: "/impressum" },
+    { label: "Datenschutz",    href: "/datenschutz" },
+    { label: "AGB",            href: "/agb" },
+  ],
+};
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#1D1D1F] text-white py-12">
+    <footer className="bg-[#030812] border-t border-white/4 pt-16 pb-10">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo */}
-          <a href="#" className="flex items-center opacity-90 hover:opacity-100 transition-opacity duration-200">
-            <Image
-              src="/norvik-logo-white.png"
-              alt="Norvik"
-              width={100}
-              height={34}
-              className="h-7 w-auto"
-            />
-          </a>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <a href="#" className="flex items-center mb-4">
+              <Image
+                src="/norvik-logo-white.png"
+                alt="Norvik Intelligence"
+                width={110}
+                height={36}
+                className="h-7 w-auto opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </a>
+            <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">
+              Specialist intelligence for founders, investors and deal teams.
+            </p>
+          </div>
 
-          {/* Links */}
-          <nav className="flex items-center gap-6">
-            {["Services", "Process", "About", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-sm text-[#86868B] hover:text-white transition-colors duration-200"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
+          {/* Link columns */}
+          {Object.entries(links).map(([category, items]) => (
+            <div key={category}>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600 mb-4">
+                {category}
+              </p>
+              <ul className="space-y-3">
+                {items.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="text-sm text-slate-600 hover:text-slate-300 transition-colors duration-200"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
-          {/* Legal */}
-          <p className="text-sm text-[#86868B]">
-            © {year} Norvik Studio. All rights reserved.
+        <div className="border-t border-white/4 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-700">
+            © {year} Norvik Intelligence. All rights reserved.
+          </p>
+          <p className="text-xs text-slate-700">
+            DACH-focused Intelligence Studio
           </p>
         </div>
       </div>

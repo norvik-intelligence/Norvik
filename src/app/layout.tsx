@@ -2,82 +2,57 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://norvik.studio"),
   title: {
-    default: "Norvik — Boutique Digital Product Studio",
-    template: "%s | Norvik",
+    default: "Norvik Intelligence — Strategic Market & Competitive Intelligence",
+    template: "%s | Norvik Intelligence",
   },
   description:
-    "Norvik is a boutique technology studio that designs and engineers beautiful, resilient digital products. From idea to launch in weeks, not months.",
+    "Norvik Intelligence is a specialist research and intelligence studio for competitive narrative intelligence, strategic market insight and M&A due diligence support — for founders, investors and deal teams in DACH.",
   keywords: [
-    "product studio",
-    "web development",
-    "UI/UX design",
-    "Next.js",
-    "React",
-    "startup",
-    "software engineering",
-    "digital agency",
+    "competitive intelligence",
+    "market intelligence",
+    "M&A due diligence",
+    "narrative intelligence",
+    "DACH market research",
+    "strategic analysis",
+    "private equity research",
+    "deal team support",
   ],
-  authors: [{ name: "Norvik Studio", url: "https://norvik.studio" }],
-  creator: "Norvik Studio",
+  authors: [{ name: "Norvik Intelligence", url: "https://norvik.studio" }],
+  creator: "Norvik Intelligence",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "de_DE",
+    alternateLocale: "en_US",
     url: "https://norvik.studio",
-    title: "Norvik — Boutique Digital Product Studio",
+    title: "Norvik Intelligence — Strategic Market & Competitive Intelligence",
     description:
-      "We design and engineer digital products that are beautiful by default and resilient by design — from idea to launch in weeks, not months.",
-    siteName: "Norvik Studio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Norvik — Boutique Digital Product Studio",
-      },
-    ],
+      "Focused market, competitive and narrative analysis for founders, investors and deal teams navigating growth, positioning and transactions.",
+    siteName: "Norvik Intelligence",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Norvik Intelligence" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Norvik — Boutique Digital Product Studio",
-    description:
-      "We design and engineer digital products that are beautiful by default and resilient by design.",
+    title: "Norvik Intelligence — Strategic Market & Competitive Intelligence",
+    description: "Focused intelligence for high-stakes business decisions. DACH markets.",
     images: ["/og-image.png"],
-    creator: "@norvik_studio",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}>
-      <body className="antialiased">{children}</body>
+    <html lang="de" className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}>
+      <body className="antialiased bg-[#060E1D]">{children}</body>
     </html>
   );
 }
