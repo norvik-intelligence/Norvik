@@ -7,19 +7,19 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "Leistungen",  href: "#services" },
-  { label: "Prozess",     href: "#process" },
-  { label: "Preise",      href: "#pricing" },
-  { label: "Über uns",    href: "#about" },
-  { label: "Kontakt",     href: "#contact" },
+  { label: "Leistungen", href: "#services" },
+  { label: "Vorgehen",   href: "#process" },
+  { label: "Preise",     href: "#pricing" },
+  { label: "Über uns",   href: "#about" },
+  { label: "Kontakt",    href: "#contact" },
 ];
 
 export default function Navbar() {
-  const [scrolled,    setScrolled]    = useState(false);
-  const [mobileOpen,  setMobileOpen]  = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 24);
+    const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -29,91 +29,84 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#060E1D]/85 backdrop-blur-2xl border-b border-white/6 shadow-[0_1px_30px_rgba(0,0,0,0.4)]"
+            ? "bg-[#07080F]/88 backdrop-blur-2xl border-b border-white/6 shadow-[0_1px_0_rgba(255,255,255,0.04)]"
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
-
-          {/* Logo */}
-          <a href="#" className="flex items-center shrink-0">
+        <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+          <a href="#" className="flex items-center group">
             <Image
               src="/norvik-logo-white.png"
               alt="Norvik Intelligence"
-              width={180}
-              height={50}
-              className="object-contain"
+              width={160}
+              height={52}
+              className="h-9 w-auto opacity-85 group-hover:opacity-100 transition-opacity duration-300"
               priority
             />
           </a>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          <ul className="hidden md:flex items-center gap-0.5">
             {navLinks.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
-              >
-                {l.label}
-              </a>
+              <li key={l.label}>
+                <a
+                  href={l.href}
+                  className="px-4 py-2 text-sm font-medium text-[rgba(239,237,232,0.45)] hover:text-[#EFEDE8] transition-colors duration-200 rounded-lg hover:bg-white/5"
+                >
+                  {l.label}
+                </a>
+              </li>
             ))}
-          </nav>
+          </ul>
 
-          <div className="hidden md:flex items-center gap-3">
-            <Button asChild size="sm" className="text-sm">
-              <a
-                href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence"
-              >
-                Gespräch buchen
+          <div className="hidden md:flex items-center">
+            <Button size="sm" asChild>
+              <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Strategiegespr%C3%A4ch%20%E2%80%94%20Norvik%20Intelligence">
+                Gespräch vereinbaren
               </a>
             </Button>
           </div>
 
-          {/* Mobile toggle */}
           <button
+            className="md:hidden p-2 rounded-lg text-[rgba(239,237,232,0.6)] hover:bg-white/8 hover:text-[#EFEDE8] transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menü öffnen"
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-        </div>
+        </nav>
       </motion.header>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.22 }}
-            className="fixed top-[72px] left-0 right-0 z-40 bg-[#060E1D]/95 backdrop-blur-2xl border-b border-white/6 px-6 py-4 md:hidden"
+            className="fixed top-16 left-0 right-0 z-40 bg-[#07080F]/96 backdrop-blur-2xl border-b border-white/6 md:hidden"
           >
-            <nav className="flex flex-col gap-1">
+            <div className="px-6 py-4 flex flex-col gap-1">
               {navLinks.map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/6 rounded-xl transition-colors"
+                  className="px-4 py-3 text-sm font-medium text-[rgba(239,237,232,0.55)] hover:text-[#EFEDE8] hover:bg-white/5 rounded-lg transition-colors"
                 >
                   {l.label}
                 </a>
               ))}
-              <Button asChild size="sm" className="mt-3 w-full">
-                <a
-                  href="mailto:mohamed.jamai.norvik@gmail.com?subject=Book%20a%20Strategic%20Call%20%E2%80%94%20Norvik%20Intelligence"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Gespräch buchen
-                </a>
-              </Button>
-            </nav>
+              <div className="pt-3 pb-1">
+                <Button className="w-full" asChild>
+                  <a href="mailto:mohamed.jamai.norvik@gmail.com?subject=Strategiegespr%C3%A4ch%20%E2%80%94%20Norvik%20Intelligence" onClick={() => setMobileOpen(false)}>
+                    Gespräch vereinbaren
+                  </a>
+                </Button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

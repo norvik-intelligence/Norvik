@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const links = {
   Leistungen: [
     { label: "Competitive Narrative", href: "#services" },
@@ -23,22 +21,23 @@ const links = {
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative border-t border-white/6 py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
-          {/* Marke */}
+    <footer className="relative border-t border-white/6 py-16 px-6 bg-[#07080F]">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <a href="#" className="text-white font-bold text-lg tracking-tight">
+            <a href="#" className="text-[#EFEDE8] font-bold text-base tracking-tight">
               Norvik Intelligence
             </a>
-            <p className="text-sm text-slate-500 mt-3 leading-relaxed">
+            <p className="text-sm text-[rgba(239,237,232,0.32)] mt-3 leading-relaxed max-w-[200px]">
               Spezialisierte Intelligence für Gründer, Investoren und Deal-Teams.
             </p>
           </div>
-          {/* Link-Spalten */}
+
+          {/* Link columns */}
           {Object.entries(links).map(([category, items]) => (
             <div key={category}>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-600 mb-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[rgba(239,237,232,0.25)] mb-4">
                 {category}
               </p>
               <ul className="space-y-2.5">
@@ -46,7 +45,7 @@ export default function Footer() {
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="text-sm text-slate-500 hover:text-slate-300 transition-colors"
+                      className="text-sm text-[rgba(239,237,232,0.38)] hover:text-[#EFEDE8] transition-colors duration-200"
                     >
                       {item.label}
                     </a>
@@ -56,11 +55,12 @@ export default function Footer() {
             </div>
           ))}
         </div>
+
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/6 pt-8">
-          <p className="text-xs text-slate-600">
+          <p className="text-xs text-[rgba(239,237,232,0.22)]">
             &copy; {year} Norvik Intelligence. Alle Rechte vorbehalten.
           </p>
-          <p className="text-xs text-slate-700">
+          <p className="text-xs text-[rgba(239,237,232,0.16)]">
             DACH-fokussiertes Intelligence Studio
           </p>
         </div>

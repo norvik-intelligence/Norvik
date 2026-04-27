@@ -1,46 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #060E1D;
-  --bg2: #0A1628;
-  --text: #EEF2FF;
-  --muted: #64748B;
-  --accent: #3B82F6;
-  --gold: #C49D3B;
-  --border: rgba(100, 150, 230, 0.1);
-  --card: rgba(14, 28, 52, 0.7);
+  --ink:    #07080F;
+  --ink2:   #0C0D1A;
+  --ink3:   #11121F;
+  --cream:  #EFEDE8;
+  --muted:  #52526A;
+  --muted2: #2C2C40;
+  --accent: #5865F2;
+  --accent-soft: rgba(88,101,242,0.12);
+  --accent-glow: rgba(88,101,242,0.22);
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --gold:  #B8963E;
+  --gold-soft: rgba(184,150,62,0.12);
 }
 
 @theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--text);
+  --color-background: var(--ink);
+  --color-foreground: var(--cream);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
 
 body {
-  background: #060E1D;
-  color: #EEF2FF;
+  background: var(--ink);
+  color: var(--cream);
   font-family: var(--font-geist-sans), -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* ── Grain overlay ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 /* ── Gradient text ── */
 .text-gradient {
-  background: linear-gradient(130deg, #60A5FA 0%, #3B82F6 40%, #818CF8 100%);
+  background: linear-gradient(125deg, #93A6FF 0%, #5865F2 45%, #A78BFA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .text-gradient-gold {
-  background: linear-gradient(130deg, #FCD34D 0%, #D97706 100%);
+  background: linear-gradient(125deg, #FCD34D 0%, #B8963E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ── Section label ── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border2);
+  background: rgba(255,255,255,0.04);
+  color: rgba(239,237,232,0.45);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* ── Marquee ── */
@@ -48,97 +83,83 @@ body {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.animate-marquee { animation: marquee 50s linear infinite; }
+.animate-marquee { animation: marquee 60s linear infinite; }
 
-/* ── Floating 3D document cards ── */
-@keyframes floatA {
-  0%,100% { transform: perspective(900px) translateY(0px) rotateX(7deg) rotateY(-8deg); }
-  33%     { transform: perspective(900px) translateY(-18px) rotateX(-3deg) rotateY(12deg); }
-  66%     { transform: perspective(900px) translateY(-8px) rotateX(10deg) rotateY(-3deg); }
+/* ── Terrain / contour line float ── */
+@keyframes terrainA {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-28px); }
 }
-@keyframes floatB {
-  0%,100% { transform: perspective(900px) translateY(-5px) rotateX(-8deg) rotateY(10deg); }
-  50%     { transform: perspective(900px) translateY(15px) rotateX(5deg) rotateY(-12deg); }
+@keyframes terrainB {
+  0%,100% { transform: translateY(-8px); }
+  50%     { transform: translateY(22px); }
 }
-@keyframes floatC {
-  0%,100% { transform: perspective(900px) translateY(8px) rotateX(5deg) rotateY(5deg); }
-  40%     { transform: perspective(900px) translateY(-16px) rotateX(-7deg) rotateY(-8deg); }
+@keyframes terrainC {
+  0%,100% { transform: translateY(6px); }
+  50%     { transform: translateY(-18px); }
 }
-.float-a { animation: floatA 9s  ease-in-out infinite; }
-.float-b { animation: floatB 11s ease-in-out infinite 1.5s; }
-.float-c { animation: floatC 7s  ease-in-out infinite 3s; }
+@keyframes terrainD {
+  0%,100% { transform: translateY(-4px); }
+  50%     { transform: translateY(32px); }
+}
+.terrain-a { animation: terrainA 18s ease-in-out infinite; }
+.terrain-b { animation: terrainB 24s ease-in-out infinite 3s; }
+.terrain-c { animation: terrainC 16s ease-in-out infinite 6s; }
+.terrain-d { animation: terrainD 28s ease-in-out infinite 1.5s; }
 
 /* ── Glow pulse ── */
 @keyframes glowPulse {
-  0%,100% { opacity: 0.35; transform: scale(1); }
-  50%     { opacity: 0.65; transform: scale(1.08); }
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50%     { opacity: 0.75; transform: scale(1.06); }
 }
 .glow-pulse { animation: glowPulse 8s ease-in-out infinite; }
 
-/* ── Scan line (decorative) ── */
-@keyframes scanDown {
-  from { transform: translateY(-100%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  to   { transform: translateY(100vh); opacity: 0; }
-}
-
-/* ── Progress bar fill ── */
-@keyframes fillRight {
-  from { width: 0; }
-  to   { width: 100%; }
-}
-
-/* ── Counter shimmer ── */
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.fade-slide-up { animation: fadeSlideUp 0.6s ease forwards; }
-
-/* ── Pricing card border glow ── */
+/* ── Border glow (featured card) ── */
 @keyframes borderGlow {
-  0%,100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05); }
-  50%     { box-shadow: 0 0 30px rgba(59, 130, 246, 0.3),  0 0 80px rgba(59, 130, 246, 0.1); }
+  0%,100% { box-shadow: 0 0 20px rgba(88,101,242,0.15), inset 0 0 20px rgba(88,101,242,0.03); }
+  50%     { box-shadow: 0 0 40px rgba(88,101,242,0.30), inset 0 0 30px rgba(88,101,242,0.06); }
 }
 .border-glow { animation: borderGlow 4s ease-in-out infinite; }
 
-/* ── Shimmer sweep on hover ── */
-.shimmer-card {
-  position: relative;
-  overflow: hidden;
-}
+/* ── Shimmer sweep ── */
+.shimmer-card { position: relative; overflow: hidden; }
 .shimmer-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.035) 50%, transparent 60%);
   transform: translateX(-100%);
   transition: transform 0s;
   pointer-events: none;
 }
 .shimmer-card:hover::before {
   transform: translateX(100%);
-  transition: transform 0.6s ease;
+  transition: transform 0.7s ease;
 }
 
-/* ── Section label ── */
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  background: rgba(59, 130, 246, 0.08);
-  color: #93C5FD;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
+/* ── FAQ border ── */
+.faq-border { border-bottom: 1px solid var(--border); }
 
-/* ── FAQ accordion ── */
-.faq-border {
-  border-bottom: 1px solid rgba(100, 150, 230, 0.1);
+/* ── Scroll-reveal line animation ── */
+@keyframes lineGrow {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
 }
+.line-grow { animation: lineGrow 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ── Floating doc cards (hero) ── */
+@keyframes floatA {
+  0%,100% { transform: perspective(900px) translateY(0px) rotateX(4deg) rotateY(-5deg); }
+  50%     { transform: perspective(900px) translateY(-16px) rotateX(-2deg) rotateY(7deg); }
+}
+@keyframes floatB {
+  0%,100% { transform: perspective(900px) translateY(-4px) rotateX(-5deg) rotateY(7deg); }
+  50%     { transform: perspective(900px) translateY(13px) rotateX(3deg) rotateY(-8deg); }
+}
+@keyframes floatC {
+  0%,100% { transform: perspective(900px) translateY(6px) rotateX(3deg) rotateY(3deg); }
+  40%     { transform: perspective(900px) translateY(-13px) rotateX(-5deg) rotateY(-5deg); }
+}
+.float-a { animation: floatA 10s ease-in-out infinite; }
+.float-b { animation: floatB 13s ease-in-out infinite 2s; }
+.float-c { animation: floatC 9s ease-in-out infinite 4s; }
