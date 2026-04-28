@@ -103,7 +103,6 @@ export default function Hero() {
                 alt="Norvik Intelligence"
                 width={120}
                 height={40}
-                style={{ mixBlendMode: "screen" }}
                 priority
               />
             </a>

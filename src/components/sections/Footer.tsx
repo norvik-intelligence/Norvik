@@ -34,7 +34,6 @@ export default function Footer() {
                 alt="Norvik Intelligence"
                 width={110}
                 height={36}
-                style={{ mixBlendMode: "screen" }}
               />
             </a>
             <p className="text-sm text-[rgba(239,237,232,0.32)] mt-3 leading-relaxed max-w-[200px]">
