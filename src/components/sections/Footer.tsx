@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const links = {
   Leistungen: [
     { label: "Competitive Narrative", href: "#services" },
@@ -26,8 +28,14 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <a href="#" className="text-[#EFEDE8] font-bold text-base tracking-tight">
-              Norvik Intelligence
+            <a href="#" className="inline-flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Norvik Intelligence"
+                width={110}
+                height={36}
+                style={{ mixBlendMode: "screen" }}
+              />
             </a>
             <p className="text-sm text-[rgba(239,237,232,0.32)] mt-3 leading-relaxed max-w-[200px]">
               Spezialisierte Intelligence für Gründer, Investoren und Deal-Teams.

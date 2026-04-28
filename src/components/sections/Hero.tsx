@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, ReactNode } from "react";
+import Image from "next/image";
 
 const VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4";
@@ -96,8 +97,15 @@ export default function Hero() {
         {/* Navbar */}
         <div className="pt-6">
           <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
-            <a href="#" className="text-2xl font-semibold tracking-tight text-white">
-              Norvik
+            <a href="#" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Norvik Intelligence"
+                width={120}
+                height={40}
+                style={{ mixBlendMode: "screen" }}
+                priority
+              />
             </a>
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
