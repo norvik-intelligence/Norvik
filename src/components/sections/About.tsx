@@ -12,14 +12,14 @@ const pillars = [
 
 export default function About() {
   return (
-    <section id="about" className="py-28 lg:py-36 bg-[#09090F] relative overflow-hidden">
+    <section id="about" className="py-16 sm:py-24 lg:py-36 bg-[#09090F] relative overflow-hidden">
       {/* Background section number */}
       <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">
         02
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-start">
 
           {/* Left */}
           <motion.div
@@ -53,7 +53,7 @@ export default function About() {
             </p>
 
             {/* Stats row */}
-            <div className="mt-10 flex gap-10 pt-10 border-t border-white/6">
+            <div className="mt-8 flex gap-6 sm:gap-10 pt-8 sm:pt-10 border-t border-white/6">
               {[{ n: "48h", l: "Express" }, { n: "100%", l: "Schriftlich" }, { n: "DACH", l: "Fokus" }].map(({ n, l }) => (
                 <div key={l}>
                   <p className="text-2xl font-black text-[#EFEDE8] tracking-tight">{n}</p>

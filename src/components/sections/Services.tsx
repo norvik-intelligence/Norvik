@@ -12,16 +12,16 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-28 lg:py-36 bg-[#06070C] relative overflow-hidden">
+    <section id="services" className="py-16 sm:py-24 lg:py-36 bg-[#06070C] relative overflow-hidden">
       <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">03</div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
-          className="mb-20"
+          className="mb-12 sm:mb-20"
         >
           <span className="section-label">Intelligence-Leistungen</span>
           <div className="overflow-hidden mt-6">
@@ -50,13 +50,13 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative border-t border-white/6 py-8 grid grid-cols-[80px_1fr_auto] md:grid-cols-[100px_1fr_auto] gap-6 items-start hover:border-white/12 transition-colors duration-300"
+                className="group relative border-t border-white/6 py-6 sm:py-8 grid grid-cols-[52px_1fr] md:grid-cols-[100px_1fr_auto] gap-4 sm:gap-6 items-start hover:border-white/12 transition-colors duration-300"
               >
                 {/* Hover accent line */}
                 <div className="absolute left-0 top-0 h-px w-0 bg-[#5865F2] group-hover:w-full transition-all duration-700 ease-out" />
 
                 {/* Number */}
-                <span className="text-[clamp(28px,3vw,42px)] font-black text-[rgba(239,237,232,0.12)] group-hover:text-[rgba(239,237,232,0.22)] transition-colors duration-300 pt-1 leading-none tracking-tighter">
+                <span className="text-[clamp(22px,3vw,42px)] font-black text-[rgba(239,237,232,0.12)] group-hover:text-[rgba(239,237,232,0.22)] transition-colors duration-300 pt-1 leading-none tracking-tighter">
                   {s.num}
                 </span>
 
@@ -76,8 +76,8 @@ export default function Services() {
                   </div>
                 </div>
 
-                {/* Arrow */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 pt-2">
+                {/* Arrow — desktop only */}
+                <div className="hidden md:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 pt-2">
                   <div className="w-8 h-8 rounded-full border border-white/12 flex items-center justify-center">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="rgba(239,237,232,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>

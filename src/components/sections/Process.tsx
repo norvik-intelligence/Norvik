@@ -11,7 +11,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="py-28 lg:py-36 bg-[#06070C] relative overflow-hidden">
+    <section id="process" className="py-16 sm:py-24 lg:py-36 bg-[#06070C] relative overflow-hidden">
       <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">05</div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -42,7 +42,7 @@ export default function Process() {
           <div className="absolute top-[52px] left-[calc(16.67%+28px)] right-[calc(16.67%+28px)] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-6">
+        <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
