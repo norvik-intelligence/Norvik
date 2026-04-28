@@ -1,4 +1,3 @@
-import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import TrustedBy from "@/components/sections/TrustedBy";
 import About from "@/components/sections/About";
@@ -14,7 +13,6 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <main className="bg-[#060E1D]">
-      <Navbar />
       <Hero />
       <TrustedBy />
       <About />
