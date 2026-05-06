@@ -45,14 +45,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-28 lg:py-36 bg-[#07080F] relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 lg:py-36 bg-[#07080F] relative overflow-hidden">
       <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">09</div>
 
       {/* Accent glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#5865F2]/8 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-start">
 
           {/* Left — headline + info */}
           <motion.div
@@ -118,7 +118,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1, ease }}
           >
-            <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-8 lg:p-10">
+            <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-5 sm:p-8 lg:p-10">
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <motion.div
