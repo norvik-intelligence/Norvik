@@ -46,7 +46,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-16 sm:py-24 lg:py-36 bg-[#07080F] relative overflow-hidden">
-      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">09</div>
+      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">10</div>
 
       {/* Accent glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#5865F2]/8 rounded-full blur-[100px] pointer-events-none" />

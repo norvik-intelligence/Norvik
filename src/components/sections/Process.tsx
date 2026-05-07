@@ -12,7 +12,7 @@ const steps = [
 export default function Process() {
   return (
     <section id="process" className="py-16 sm:py-24 lg:py-36 bg-[#06070C] relative overflow-hidden">
-      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">05</div>
+      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">04</div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div

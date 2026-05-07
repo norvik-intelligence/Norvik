@@ -16,7 +16,7 @@ const terms = ["PDF, Word oder PowerPoint", "Deutsch & Englisch", "50 % Voraus /
 export default function Deliverables() {
   return (
     <section className="py-16 sm:py-24 lg:py-36 bg-[#09090F] relative overflow-hidden">
-      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">06</div>
+      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">05</div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div

@@ -15,8 +15,8 @@ export default function About() {
     <section id="about" className="py-16 sm:py-24 lg:py-36 bg-[#09090F] relative overflow-hidden">
       {/* Background section number */}
       <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">
-        02
-      </div>
+        01
+</div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-start">

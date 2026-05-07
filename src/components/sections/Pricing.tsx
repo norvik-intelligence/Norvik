@@ -100,7 +100,7 @@ function PricingCard({ tier, index }: { tier: typeof tiers[0]; index: number }) 
 export default function Pricing() {
   return (
     <section id="pricing" className="py-16 sm:py-24 lg:py-36 bg-[#07080F] relative overflow-hidden">
-      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">07</div>
+      <div className="absolute top-8 right-8 text-[clamp(100px,16vw,200px)] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">08</div>
 
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
