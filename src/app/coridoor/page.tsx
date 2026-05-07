@@ -10,7 +10,6 @@ import {
   MapPin, Cpu, ClipboardList, SendHorizonal,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -1331,13 +1330,19 @@ function CoridoorNav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-5">
       <div className="max-w-7xl mx-auto liquid-glass rounded-xl px-4 py-2.5 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="Norvik Intelligence" width={90} height={30} className="h-7 w-auto" />
-          </Link>
-          <span className="hidden sm:flex h-4 w-px bg-white/15" />
-          <span className="hidden sm:block text-[11px] font-bold text-[rgba(239,237,232,0.45)] tracking-wider">CORIDOOR</span>
-        </div>
+        <Link href="/" className="flex items-center gap-2.5">
+          <svg width="30" height="30" viewBox="0 0 60 80" fill="none" className="text-white shrink-0">
+            <path d="M8 40 C 18 40 28 18 52 10" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
+            <path d="M8 40 C 25 40 38 40 52 40" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
+            <path d="M8 40 C 18 40 28 62 52 70" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
+            <path d="M26 28 C 36 22 44 16 52 10" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
+            <path d="M26 52 C 36 58 44 64 52 70" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
+          </svg>
+          <div className="flex flex-col leading-none gap-0.5">
+            <span className="text-[#EFEDE8] font-bold text-[17px] tracking-tight leading-none">Coridoor</span>
+            <span className="text-[rgba(239,237,232,0.35)] text-[9px] tracking-[0.12em] font-medium leading-none">BY NORVIK INTELLIGENCE</span>
+          </div>
+        </Link>
         <div className="hidden md:flex items-center gap-6 text-sm">
           {[["Workflow","#"],["Module","#"],["Pakete","#packages"],["FAQ","#faq"]].map(([label, href]) => (
             <a key={label} href={href} className="text-[rgba(239,237,232,0.55)] hover:text-[#EFEDE8] transition-colors text-sm">{label}</a>
