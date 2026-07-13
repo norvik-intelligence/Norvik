@@ -1,147 +1,205 @@
 ---
 name: nano-banana
-description: "Generate images with Google Gemini native image models via inference.sh CLI. Models: Gemini 3 Pro Image, Gemini 2.5 Flash Image. Capabilities: text-to-image, image editing, multi-image input. Triggers: nano banana, gemini image, gemini 3 pro image, gemini 2.5 flash image, google image generation, native image generation, gemini native image"
-allowed-tools: Bash(belt *)
+description: Generate and edit images using Google's Gemini image generation models (Nano Banana family). Supports style presets, platform-specific sizing (YouTube/slides/blog), variants, image editing via inlineData, reference images for style transfer, and organized output with metadata. Default model is Nano Banana 2 (gemini-3.1-flash-image-preview). Key is auto-decrypted via SOPS.
 ---
 
-> **Install the belt CLI skill:** `npx skills add belt-sh/cli`
+# Nano Banana - Gemini Image Generation
 
-# Nano Banana - Gemini Native Image Generation
+Generate and edit images from text prompts via Google's Gemini image generation API.
 
-Generate images with Google Gemini native image models via [inference.sh](https://inference.sh) CLI.
+## When to Use
 
-![Nano Banana](https://cloud.inference.sh/u/33sqbmzt3mrg2xxphnhw5g5ear/01k8d6xa9cwawrvzk9cgtsexfc.png)
+- User requests image generation, creation, or production from a text description
+- Editing existing images with text instructions
+- Style-transfer: generate new images that match the aesthetic of a reference
+- Creating illustrations for presentations, articles, thumbnails, social posts
+- Batch variations of the same concept
+
+## First-Time Setup
+
+```bash
+scripts/nano_banana.py init
+```
+
+Wizard checks dependencies (sops, age, magick), verifies the API key, and saves defaults to `~/.config/nano-banana/config.yaml`.
 
 ## Quick Start
 
-> Requires inference.sh CLI (`belt`). [Install instructions](https://raw.githubusercontent.com/inference-sh/skills/refs/heads/main/cli-install.md)
-
 ```bash
-belt login
+# Simple generation
+scripts/nano_banana.py "a minimalist illustration of a rocket" ./rocket.png
 
-belt app run google/gemini-3-pro-image-preview --input '{"prompt": "a banana in space, photorealistic"}'
+# With style preset
+scripts/nano_banana.py --preset editorial "interconnected nodes" ./nodes.png
+
+# YouTube thumbnail (auto-cropped to 1280x720)
+scripts/nano_banana.py --preset grain --platform youtube "coffee on desk" ./thumb.png
+
+# Generate 4 variants + contact sheet
+scripts/nano_banana.py --preset wireframe "a crystal" ./crystal.png --n 4
+
+# Edit existing image
+scripts/nano_banana.py --edit ./old.png "make the background deep teal" ./new.png
+
+# Style reference (match aesthetic of existing image)
+scripts/nano_banana.py --reference ./style.png "a new mountain landscape" ./mountain.png
+
+# Re-roll last prompt
+scripts/nano_banana.py again
+
+# View history
+scripts/nano_banana.py history -n 10
 ```
 
+## Requirements
+
+- `GEMINI_API_KEY` — auto-decrypted from `secrets.enc.yaml` via SOPS + age. Fallback: `export GEMINI_API_KEY=...`
+- `sops`, `age` — for key decryption
+- `magick` (ImageMagick) — for platform fit + contact sheets
+- `python3` with `pyyaml`
 
 ## Models
 
-| Model | App ID | Speed | Quality |
-|-------|--------|-------|---------|
-| Gemini 3 Pro Image | `google/gemini-3-pro-image-preview` | Slower | Best |
-| Gemini 2.5 Flash Image | `google/gemini-2-5-flash-image` | Fast | Excellent |
+| Model | Alias | Nano Banana Name | Use When |
+|-------|-------|-----------------|----------|
+| `gemini-3.1-flash-image-preview` (default) | `flash` | **Nano Banana 2** | Best instruction following, fast |
+| `gemini-3-pro-image-preview` | `pro` | **Nano Banana Pro** | Highest quality, text in images |
+| `gemini-2.5-flash-image` | `flash-2.5` | **Nano Banana** (original) | Legacy |
 
-## Search Gemini Image Apps
+Use via `--model flash|pro|flash-2.5` or full ID.
 
-```bash
-belt app store search "gemini image"
-```
-
-## Examples
-
-### Basic Text-to-Image
+## Style Presets
 
 ```bash
-belt app run google/gemini-3-pro-image-preview --input '{
-  "prompt": "A futuristic cityscape at sunset with flying cars"
-}'
+scripts/nano_banana.py list-presets
+scripts/nano_banana.py --preset editorial "your subject" out.png
 ```
 
-### Multiple Images
+| Preset | Style |
+|--------|-------|
+| `editorial` | Thin lines on black, muted palette, technical diagram feel |
+| `blueprint` | White/cyan lines on dark navy, engineering drawing |
+| `ink` | Japanese sumi-e ink wash, organic brushstrokes, monochrome |
+| `risograph` | Flat colors, grain, terracotta + sage, zine aesthetic |
+| `wireframe` | 3D wireframe mesh, glowing edges on black |
+| `constellation` | Star map dots connected by faint lines, celestial |
+| `brutalist` | Bold shapes, thick borders, hard shadows, flat colors |
+| `grain` | Film grain photo, high ISO, warm cinematic tones |
+
+Defined in `presets.yaml` — edit to add your own.
+
+## Platform Presets
 
 ```bash
-belt app run google/gemini-2-5-flash-image --input '{
-  "prompt": "Minimalist logo design for a coffee shop",
-  "num_images": 4
-}'
+scripts/nano_banana.py list-platforms
+scripts/nano_banana.py --platform youtube "your subject" out.png
 ```
 
-### Custom Aspect Ratio
+Generated image is automatically resized + center-cropped to target dimensions.
+
+| Platform | Size |
+|----------|------|
+| `youtube` | 1280×720 |
+| `youtube-short` | 1080×1920 |
+| `slides` | 1920×1080 |
+| `blog` | 1200×630 |
+| `x` | 1600×900 |
+| `square` | 1080×1080 |
+| `story` | 1080×1920 |
+| `pinterest` | 1000×1500 |
+
+## Features
+
+### Variants + Contact Sheet
+`--n N` generates N variants in parallel and assembles them into a contact sheet:
+```bash
+scripts/nano_banana.py --preset ink "mountain" ./mt.png --n 6
+# Creates mt-01.png ... mt-06.png + mt-contact.png
+```
+
+### Batch generation (campaigns / multi-copy ad sets)
+When each output needs *different* text or a different prompt (e.g. a set of ads sharing one style), loop over a list. `--n` won't help here — it re-rolls the *same* prompt. Use a shared `$STYLE` string + a per-item array.
 
 ```bash
-belt app run google/gemini-3-pro-image-preview --input '{
-  "prompt": "Panoramic mountain landscape with northern lights",
-  "aspect_ratio": "16:9"
-}'
+cd /abs/output/dir
+REF="_reference.png"   # optional style anchor
+STYLE="<shared visual-style description, written once>"
+
+# Each entry: pipe-delimited fields + output filename. NAME the array — see gotchas.
+ADS=(
+"CALL NOW|FOR TOTAL|CONFIDENTIALITY|ad-callnow.png"
+"REDACT|BEFORE|YOU SEND|ad-redact.png"
+)
+for entry in "${ADS[@]}"; do
+  IFS='|' read -r L1 L2 L3 OUT <<< "$entry"
+  python3 scripts/nano_banana.py \
+    "$STYLE The exact text reads, on three centered lines: '$L1' / '$L2' / '$L3'. Spell every word correctly." \
+    "$OUT" --reference "$REF" --platform youtube --model pro --no-metadata --project NAME
+done
 ```
 
-### Image Editing (with input image)
+**Shell gotchas (this is zsh on macOS — these bite every time):**
+- **Never name a loop array `LINES`, `COLUMNS`, `PATH`, `path`, `status`, `argv`, etc.** — zsh reserves them. `LINES=(...)` fails with `can't assign array value to non-array special`. Use `ADS`, `ITEMS`, `JOBS`.
+- **zsh does NOT word-split unquoted variables** (unlike bash). `CMD="magick montage"; $CMD ...` looks for a single command literally named "magick montage". Don't stuff multi-word commands in a var — call the command directly, or use an array (`cmd=(magick montage); "${cmd[@]}"`).
+- **Always quote expansions** — `"$OUT"`, `"${ADS[@]}"` — paths and prompts contain spaces.
+- Use **`'single quotes'` for the exact text** you want rendered, inside the double-quoted prompt, so the model reproduces it verbatim.
+- To parallelize a batch, append `&` per iteration and `wait` at the end — but cap concurrency (the API rate-limits); sequential is safest for >6 items.
 
+After a batch, assemble a review sheet by calling the tool directly (no var indirection): `magick montage ad-*.png -tile 2x3 -geometry 480x270+6+6 -background black _contact.png`.
+
+### Edit Mode
+Pass an existing image and the prompt becomes the edit instruction:
 ```bash
-belt app run google/gemini-2-5-flash-image --input '{
-  "prompt": "Add a rainbow in the sky",
-  "images": ["https://example.com/landscape.jpg"]
-}'
+scripts/nano_banana.py --edit ./thumb.png "remove the watermark, warmer colors" ./clean.png
 ```
 
-### High Resolution (4K)
-
+### Reference Images (Style Anchor)
+Use one or more reference images to guide the aesthetic without editing them:
 ```bash
-belt app run google/gemini-3-pro-image-preview --input '{
-  "prompt": "Detailed illustration of a medieval castle",
-  "resolution": "4K"
-}'
+scripts/nano_banana.py --reference ./episode1.png --reference ./episode2.png \
+  "episode 3: data drift" ./ep3.png
 ```
 
-### With Google Search Grounding
-
+### Projects + Metadata
+Organize outputs by project:
 ```bash
-belt app run google/gemini-3-pro-image-preview --input '{
-  "prompt": "Current weather in Tokyo visualized as an artistic scene",
-  "enable_google_search": true
-}'
+scripts/nano_banana.py --project lab-04/meeting-02 --preset editorial "MCP loops" ./overlay.png
+# Saves to ~/nano-banana/outputs/lab-04/meeting-02/20260414-<subject>.png + .json sidecar
 ```
 
-## Input Options
+### Re-roll + History
+```bash
+scripts/nano_banana.py again              # rerun last prompt
+scripts/nano_banana.py history -n 20      # show last 20 generations
+scripts/nano_banana.py history --project lab-04
+```
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `prompt` | string | **Required.** What to generate or change |
-| `images` | array | Input images for editing (up to 14) |
-| `num_images` | integer | Number of images to generate |
-| `aspect_ratio` | string | Output ratio: "1:1", "16:9", "9:16", "4:3", "3:4", "auto" |
-| `resolution` | string | "1K", "2K", "4K" (Gemini 3 Pro only) |
-| `output_format` | string | Output format for images |
-| `enable_google_search` | boolean | Enable real-time info grounding |
+### Dry Run
+Preview the composed prompt without calling the API:
+```bash
+scripts/nano_banana.py --preset editorial --platform youtube "subject" --dry-run
+```
+
+## Transient Errors & Retry
+
+The API occasionally returns `500/INTERNAL` or empty candidates. The script retries up to 4 times with exponential backoff (2s, 4s, 8s, 16s). Permanent errors (4xx, safety violations) fail fast without retry.
 
 ## Prompt Tips
 
-**Styles**: photorealistic, illustration, watercolor, oil painting, digital art, anime, 3D render
+- Specify visual style: "photograph", "flat illustration", "watercolor", "3D render"
+- Include composition: "centered", "white background", "wide shot"
+- Name colors: "blue and white color scheme", "warm earth tones"
+- For text rendering, use `--model pro` and quote exact text: `'with the text "Hello"'`
 
-**Composition**: close-up, wide shot, aerial view, macro, portrait, landscape
+See `references/api_reference.md` for full API documentation.
 
-**Lighting**: natural light, studio lighting, golden hour, dramatic shadows, neon
+## Files
 
-**Details**: add specific details about textures, colors, mood, atmosphere
-
-## Sample Workflow
-
-```bash
-# 1. Generate sample input to see all options
-belt app sample google/gemini-3-pro-image-preview --save input.json
-
-# 2. Edit the prompt
-# 3. Run
-belt app run google/gemini-3-pro-image-preview --input input.json
-```
-
-## Related Skills
-
-```bash
-# Full platform skill (all apps)
-npx skills add inference-sh/skills@infsh-cli
-
-# All image generation models
-npx skills add inference-sh/skills@ai-image-generation
-
-# Video generation (for image-to-video)
-npx skills add inference-sh/skills@ai-video-generation
-```
-
-Browse all image apps: `belt app store --category image`
-
-## Documentation
-
-- [Running Apps](https://inference.sh/docs/apps/running) - How to run apps via CLI
-- [Streaming Results](https://inference.sh/docs/api/sdk/streaming) - Real-time progress updates
-- [File Handling](https://inference.sh/docs/api/sdk/files) - Working with images
-
+- `scripts/nano_banana.py` — main CLI (Python)
+- `scripts/generate_image.sh` — thin bash wrapper (back-compat)
+- `presets.yaml` — style presets
+- `platforms.yaml` — platform sizing presets
+- `secrets.enc.yaml` — encrypted API key (SOPS + age)
+- `~/.config/nano-banana/config.yaml` — user defaults (from `init`)
+- `~/.config/nano-banana/history.jsonl` — generation log
+- `~/.config/nano-banana/last.json` — last run (for `again`)
