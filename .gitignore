@@ -40,3 +40,15 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env
+
+# Python pipeline
+pipeline/__pycache__/
+pipeline/**/__pycache__/
+pipeline/.venv/
+pipeline/.pytest_cache/
+pipeline/**/*.pyc
+pipeline/.mypy_cache/
+pipeline/*.log
+
+# Supabase local
+.supabase/
