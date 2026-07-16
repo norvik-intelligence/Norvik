@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@rueckbauradar/shared": ["./packages/shared/src"]
     }
   },
   "include": [

@@ -15,10 +15,7 @@ jobs:
   pipeline:
     name: Run Signal Pipeline
     runs-on: ubuntu-latest
-    timeout-minutes: 60
-    defaults:
-      run:
-        working-directory: pipeline
+    timeout-minutes: 90
 
     steps:
       - uses: actions/checkout@v4
@@ -29,33 +26,42 @@ jobs:
           cache: "pip"
           cache-dependency-path: "pipeline/pyproject.toml"
 
-      - name: Install dependencies
+      - name: Install core dependencies
+        working-directory: pipeline
         run: pip install -e "." --quiet
 
-      - name: Install Playwright browsers (for Crawlee/html_list_detail)
-        run: playwright install chromium --with-deps
-        continue-on-error: true  # non-fatal if scrape_html stage not used
+      - name: Install optional extras (PDF parsing + scraping)
+        working-directory: pipeline
+        continue-on-error: true  # stages degrade gracefully without these
+        run: pip install -e ".[pdf,scrape]" --quiet
 
       - name: Run pipeline
+        working-directory: pipeline
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
-          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
+          LLM_MODEL: ${{ vars.LLM_MODEL || 'claude-haiku-4-5-20251001' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          EMBEDDING_PROVIDER: ${{ secrets.EMBEDDING_PROVIDER || 'openai' }}
+          EMBEDDING_PROVIDER: ${{ vars.EMBEDDING_PROVIDER || 'openai' }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'signal@rueckbauradar.de' }}
+          EMAIL_FROM: ${{ vars.EMAIL_FROM || 'signal@rueckbauradar.de' }}
         run: |
           STAGES="${{ github.event.inputs.stages || 'fetch,parse,classify,score,geocode,embed,dedupe,publish' }}"
           python run_pipeline.py --stages "$STAGES"
 
-      - name: Upload pipeline log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pipeline-log-${{ github.run_id }}
-          path: pipeline/*.log
-          retention-days: 7
-          if-no-files-found: ignore
+  # GDPR: monthly cleanup of raw_documents older than 24 months
+  gdpr-cleanup:
+    name: GDPR raw_documents cleanup
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Call cleanup function
+        run: |
+          curl -sS -X POST \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/cleanup_old_raw_documents" \
+            -H "apikey: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{}'

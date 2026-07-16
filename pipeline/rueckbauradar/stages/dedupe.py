@@ -37,7 +37,7 @@ def run() -> dict[str, int]:
     geo_m = settings.DEDUPE_GEO_RADIUS_M
     days = settings.DEDUPE_TIME_WINDOW_DAYS
 
-    for i, sig in enumerate(signals):
+    for sig in signals:
         if not sig.get("embedding"):
             continue
         # Use pgvector cosine similarity via RPC

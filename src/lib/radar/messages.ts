@@ -1,0 +1,107 @@
+/**
+ * Central UI strings for RückbauRadar (spec: no hardcoded strings,
+ * keep the Europe/multi-language option open).
+ */
+export const messages = {
+  common: {
+    appName: "RückbauRadar",
+    save: "Speichern",
+    cancel: "Abbrechen",
+    back: "← Zurück",
+    loading: "Lädt …",
+    error: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+    delete: "Löschen",
+    logout: "Abmelden",
+  },
+  auth: {
+    loginTitle: "Anmelden",
+    loginSubtitle: "Zugang zu Ihrem Signal-Feed",
+    email: "E-Mail",
+    password: "Passwort",
+    loginButton: "Anmelden",
+    noAccount: "Noch kein Konto?",
+    registerCta: "Jetzt kostenlos registrieren",
+    registerTitle: "Konto erstellen",
+    registerSubtitle: "14 Tage kostenlos testen – keine Kreditkarte nötig",
+    registerButton: "Konto erstellen",
+    hasAccount: "Bereits ein Konto?",
+    loginCta: "Anmelden",
+    invalidCredentials: "E-Mail oder Passwort falsch.",
+    passwordMin: "Passwort muss mindestens 8 Zeichen haben.",
+    confirmEmailSent:
+      "Bestätigungs-E-Mail versendet. Bitte prüfen Sie Ihr Postfach und melden Sie sich danach an.",
+  },
+  portal: {
+    navFeed: "Signal-Feed",
+    navCapacities: "Kapazitäten",
+    navLeads: "Lead-Inbox",
+    navProfile: "Firmenprofil",
+    feedTitle: "Ihr Signal-Feed",
+    feedEmpty: "Noch keine Signale in Ihrem Feed.",
+    feedEmptyHint:
+      "Signale erscheinen hier, sobald geprüfte Projekte zu Ihrem Abo (Kategorie + Region) passen.",
+    filterTrade: "Gewerk",
+    filterPhase: "Phase",
+    filterAll: "Alle",
+    mapListToggleMap: "Karte",
+    mapListToggleList: "Liste",
+    addressLocked:
+      "Volle Adresse ab Plan Signal-Pro oder nach Lead-Annahme sichtbar.",
+    sourceLink: "Quelldokument",
+    capacitiesTitle: "Kapazitäten melden",
+    capacitiesHint:
+      "Teilen Sie uns mit, wann Ihre Kolonnen frei sind – wir berücksichtigen das bei der Vermittlung.",
+    capacityFrom: "Von",
+    capacityTo: "Bis",
+    capacityTeam: "Teamgröße",
+    capacityNote: "Notiz (z. B. „Frei ab KW 40 mit 6 Mann“)",
+    capacityAdd: "Kapazität melden",
+    capacityEmpty: "Noch keine Kapazitäten gemeldet.",
+    leadsTitle: "Lead-Inbox",
+    leadsEmpty: "Keine offenen Lead-Angebote.",
+    leadAccept: "Lead annehmen",
+    leadDecline: "Ablehnen",
+    leadAcceptedInfo:
+      "Lead angenommen – die Kontaktdaten des Bauherrn sind jetzt sichtbar. Die Lead-Gebühr wird fällig.",
+    leadFee: "Lead-Gebühr",
+    leadAcceptConfirm:
+      "Mit Annahme dieses Leads wird die angezeigte Gebühr gemäß Erfolgsvereinbarung fällig. Fortfahren?",
+    profileTitle: "Firmenprofil",
+  },
+  onboarding: {
+    title: "Willkommen bei RückbauRadar",
+    subtitle: "In 4 Schritten zu Ihrem Signal-Feed",
+    step1: "Firmendaten",
+    step2: "Gewerke & Kategorien",
+    step3: "Einsatzradius",
+    step4: "Erfolgsvereinbarung",
+    companyName: "Firmenname",
+    legalForm: "Rechtsform",
+    address: "Firmenanschrift (Straße, PLZ, Ort)",
+    website: "Website (optional)",
+    phone: "Telefon (optional)",
+    tradesLabel: "Welche Gewerke bieten Sie an?",
+    buyersLabel: "In welcher Rolle kaufen Sie Aufträge ein?",
+    radiusLabel: "Einsatzradius (km)",
+    agreementTitle: "Erfolgsvereinbarung",
+    agreementText:
+      "Ich akzeptiere die Lead-Konditionen: Bei Annahme eines vermittelten Leads wird " +
+      "eine Lead-Gebühr von 249–2.490 € (je nach Projektvolumen, vorab angezeigt) fällig. " +
+      "Die Annahme ist freiwillig – abgelehnte Leads kosten nichts.",
+    agreementCheckbox: "Ich akzeptiere die Erfolgsvereinbarung",
+    submit: "Registrierung abschließen",
+    certsHint:
+      "Zertifikate (TRGS 519, §48b-Freistellung, Efb) können Sie nach der Registrierung im Firmenprofil hochladen.",
+  },
+  admin: {
+    navOverview: "Übersicht",
+    navQueue: "Review-Queue",
+    navSources: "Quellen",
+    navCompanies: "Betriebe",
+    navMediations: "Vermittlung",
+    navLeads: "Leads",
+    mediationsTitle: "Vermittlungs-Board",
+    leadsTitle: "Lead-Verwaltung",
+    exportCsv: "CSV exportieren",
+  },
+} as const;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
-import "@/app/globals.css";
+import "./radar.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -17,12 +17,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RadarLayout({ children }: { children: ReactNode }) {
+export default function RadarRootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="de" className={inter.variable}>
-      <body className="bg-[#F5F4F2] text-[#1C1C1A] font-[var(--font-inter)] antialiased">
-        {children}
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

@@ -6,7 +6,7 @@ send a daily digest email to matching subscribers (max 1 email/day/subscription)
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -32,7 +32,7 @@ def run() -> dict[str, int]:
 
     for sig in approved:
         db.table("signals").update(
-            {"status": "published", "published_at": datetime.now(timezone.utc).isoformat()}
+            {"status": "published", "published_at": datetime.now(UTC).isoformat()}
         ).eq("id", sig["id"]).execute()
         published += 1
 
@@ -48,11 +48,13 @@ def _send_digests() -> int:
     settings = get_settings()
 
     # Get signals published in the last 25 hours (covers timezone edge cases)
+    from datetime import timedelta
+    cutoff = (datetime.now(UTC) - timedelta(hours=25)).isoformat()
     new_sigs_resp = (
         db.table("signals")
         .select("id, title, summary, project_phase, volume_estimate_band, score, source_url, municipality, postcode")
         .eq("status", "published")
-        .gte("published_at", "now() - interval '25 hours'")
+        .gte("published_at", cutoff)
         .order("score", desc=True)
         .execute()
     )

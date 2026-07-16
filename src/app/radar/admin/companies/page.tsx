@@ -65,7 +65,9 @@ export default async function CompaniesPage() {
           const style = STATUS_STYLES[company.verification_status] ?? STATUS_STYLES.unverified;
           const primaryContact = company.contacts?.find((c: { is_primary: boolean }) => c.is_primary) ??
             company.contacts?.[0];
-          const trades = company.company_trades?.map((ct: { trades: { slug: string; name: string } }) => ct.trades) ?? [];
+          const trades = (company.company_trades ?? [])
+            .map((ct) => ct.trades as unknown as { slug: string; name: string } | null)
+            .filter((t): t is { slug: string; name: string } => Boolean(t));
           const certs = company.certifications ?? [];
 
           return (

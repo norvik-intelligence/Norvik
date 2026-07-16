@@ -85,14 +85,13 @@ def _resolve(sig: dict) -> tuple[float | None, float | None]:
                 lat, lng = coords
                 break
 
-    # Store in cache
+    # Store in cache (best effort – a cache miss next run is acceptable)
     if lat is not None:
-        try:
+        import contextlib
+        with contextlib.suppress(Exception):
             db.table("geocode_cache").upsert(
                 {"query": query, "lat": lat, "lng": lng}, on_conflict="query"
             ).execute()
-        except Exception:
-            pass
 
     return lat, lng
 

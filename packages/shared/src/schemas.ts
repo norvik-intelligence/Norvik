@@ -77,7 +77,7 @@ export const CompanyOnboardingSchema = z.object({
   buyer_category_slugs: z.array(BuyerSlugSchema).min(1),
   // Success agreement acceptance
   accepts_lead_terms: z.literal(true, {
-    errorMap: () => ({ message: "Erfolgsvereinbarung muss akzeptiert werden." }),
+    error: "Erfolgsvereinbarung muss akzeptiert werden.",
   }),
 });
 export type CompanyOnboarding = z.infer<typeof CompanyOnboardingSchema>;

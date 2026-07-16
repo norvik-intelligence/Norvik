@@ -12,10 +12,10 @@ and keyword-filter logic only, keeping CI fast and free.
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
 from rueckbauradar.keywords import passes_keyword_filter
 from rueckbauradar.stages.classify import ClassifyOutput
@@ -202,17 +202,17 @@ class TestClassifySchema:
         assert "[Person]" in output.summary_de
 
     def test_confidence_out_of_range_rejected(self) -> None:
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             ClassifyOutput.model_validate({**RELEVANT_RESPONSES[0], "confidence": 1.5})
 
     def test_title_too_long_rejected(self) -> None:
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             ClassifyOutput.model_validate({**RELEVANT_RESPONSES[0], "title": "X" * 201})
 
     def test_building_year_range(self) -> None:
         output = ClassifyOutput.model_validate({**RELEVANT_RESPONSES[0], "building_year_hint": 1968})
         assert output.building_year_hint == 1968
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             ClassifyOutput.model_validate({**RELEVANT_RESPONSES[0], "building_year_hint": 1700})
 
 

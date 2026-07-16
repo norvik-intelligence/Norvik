@@ -8,14 +8,12 @@ then mark as parse_error — never crash the run.
 
 from __future__ import annotations
 
-import json
 import logging
 from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
 from rueckbauradar.config import get_settings
-from rueckbauradar.db import get_client
 from rueckbauradar.keywords import passes_keyword_filter
 
 logger = logging.getLogger(__name__)
@@ -80,6 +78,8 @@ Personenbezogene Daten (Namen von Privatpersonen) im summary NICHT übernehmen."
 def run() -> dict[str, int]:
     """Classify all raw_documents with parse_status='pending' that pass the keyword filter."""
     settings = get_settings()
+    from rueckbauradar.db import get_client
+
     db = get_client()
 
     docs_resp = (
@@ -175,6 +175,8 @@ def _call_llm(text: str) -> tuple[str, int]:
 
 
 def _create_signal(raw_doc_id: str, result: ClassifyOutput, tokens: int) -> None:
+    from rueckbauradar.db import get_client
+
     db = get_client()
     settings = get_settings()
 
@@ -242,6 +244,8 @@ def _heuristic_hazmat_prob(result: ClassifyOutput) -> float:
 
 
 def _get_source_url(raw_doc_id: str) -> str:
+    from rueckbauradar.db import get_client
+
     db = get_client()
     resp = db.table("raw_documents").select("url").eq("id", raw_doc_id).single().execute()
     return resp.data.get("url", "") if resp.data else ""

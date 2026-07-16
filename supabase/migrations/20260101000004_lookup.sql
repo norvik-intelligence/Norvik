@@ -5,7 +5,7 @@ create table regions (
   name        text not null,
   slug        text not null unique,
   bundesland  text not null,
-  geo_polygon geometry(multipolygon, 4326),  -- populated later
+  geo_polygon extensions.geometry(multipolygon, 4326),  -- populated later
   is_brokerage_active boolean not null default false,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()

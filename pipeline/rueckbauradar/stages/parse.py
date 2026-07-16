@@ -90,6 +90,7 @@ def parse_html_to_markdown(url: str) -> str:
     """Fetch a URL and convert to LLM-ready Markdown using Crawl4AI."""
     try:
         import asyncio
+
         from crawl4ai import AsyncWebCrawler
 
         async def _crawl() -> str:

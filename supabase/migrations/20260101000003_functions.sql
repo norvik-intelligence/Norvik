@@ -1,6 +1,9 @@
 -- Helper functions for RLS policies
 
--- Returns true if the current user has the admin claim
+-- Returns true if the current user has the admin claim.
+-- Custom roles live in app_metadata (set only server-side, never user-editable):
+--   update auth.users set raw_app_meta_data =
+--     raw_app_meta_data || '{"role":"admin"}' where email = '...';
 create or replace function is_admin()
 returns boolean
 language sql
@@ -9,7 +12,7 @@ security definer
 set search_path = ''
 as $$
   select coalesce(
-    (auth.jwt() ->> 'role') = 'admin',
+    (auth.jwt() -> 'app_metadata' ->> 'role') = 'admin',
     false
   );
 $$;

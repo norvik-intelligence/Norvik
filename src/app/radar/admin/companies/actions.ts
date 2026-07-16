@@ -2,8 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { adminClient } from "@/lib/radar/supabase";
+import { getAuthContext } from "@/lib/radar/supabase-server";
 
 export async function verifyCompany(companyId: string): Promise<void> {
+  const auth = await getAuthContext();
+  if (!auth?.isAdmin) throw new Error("Forbidden");
+
   const db = adminClient();
 
   await db
@@ -12,7 +16,7 @@ export async function verifyCompany(companyId: string): Promise<void> {
     .eq("id", companyId);
 
   await db.from("audit_log").insert({
-    actor: "admin",
+    actor: auth.userId,
     action: "company.verify",
     entity: "companies",
     entity_id: companyId,

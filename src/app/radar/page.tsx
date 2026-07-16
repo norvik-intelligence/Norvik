@@ -67,13 +67,15 @@ function Section({
   children,
   bg = C.light,
   py = "py-20 md:py-28",
+  id,
 }: {
   children: React.ReactNode;
   bg?: string;
   py?: string;
+  id?: string;
 }) {
   return (
-    <section style={{ background: bg }} className={`${py}`}>
+    <section id={id} style={{ background: bg }} className={`${py}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">{children}</div>
     </section>
   );
@@ -92,18 +94,23 @@ function Nav() {
           <span className="font-bold text-white tracking-tight">RückbauRadar</span>
         </div>
         <div className="hidden md:flex items-center gap-6 text-sm text-white/80">
-          <a href="#so-funktionierts" className="hover:text-white transition-colors">So funktioniert's</a>
+          <a href="#so-funktionierts" className="hover:text-white transition-colors">So funktioniert&apos;s</a>
           <a href="#preise" className="hover:text-white transition-colors">Preise</a>
           <a href="#bauherren" className="hover:text-white transition-colors">Für Bauherren</a>
           <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
         </div>
-        <Link
-          href="/radar/portal/onboarding"
-          className="text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
-          style={{ background: C.accent, color: C.white }}
-        >
-          Kostenlos testen
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/radar/login" className="text-sm text-white/80 hover:text-white transition-colors">
+            Anmelden
+          </Link>
+          <Link
+            href="/radar/registrieren"
+            className="text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            style={{ background: C.accent, color: C.white }}
+          >
+            Kostenlos testen
+          </Link>
+        </div>
       </div>
     </nav>
   );
@@ -133,7 +140,7 @@ export default function RadarLandingPage() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/radar/portal/onboarding"
+                href="/radar/registrieren"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all hover:opacity-90"
                 style={{ background: C.accent, color: C.white }}
               >
@@ -144,7 +151,7 @@ export default function RadarLandingPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm border transition-colors"
                 style={{ borderColor: "rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)" }}
               >
-                So funktioniert's
+                So funktioniert&apos;s
               </a>
             </div>
             <p className="text-xs mt-4" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -169,7 +176,7 @@ export default function RadarLandingPage() {
           {[
             ["täglich", "Neue Signale"],
             ["10–20 Tage", "Frühzeitiger Vorlauf"],
-            ["Rhein-Ruhr", "Startregion aktiv"],
+            ["Deutschlandweit", "Signal-Abdeckung"],
             ["0 €", "Keine Kreditkarte nötig"],
           ].map(([num, label]) => (
             <div key={label} className="text-white">
@@ -280,7 +287,7 @@ export default function RadarLandingPage() {
               ))}
             </ul>
             <Link
-              href="/radar/portal/onboarding"
+              href="/radar/registrieren"
               className="block text-center py-3 rounded-lg font-semibold text-sm transition-opacity hover:opacity-90"
               style={{ background: C.green, color: C.white }}
             >

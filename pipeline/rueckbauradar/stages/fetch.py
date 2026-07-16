@@ -11,6 +11,7 @@ import hashlib
 import importlib
 import logging
 from dataclasses import dataclass
+from datetime import UTC, datetime
 
 from rueckbauradar.db import get_client
 
@@ -36,7 +37,7 @@ def run() -> list[FetchResult]:
         results.append(result)
         db.table("sources").update(
             {
-                "last_run_at": "now()",
+                "last_run_at": datetime.now(UTC).isoformat(),
                 "last_status": f"ok: {result.new_docs} new" if result.errors == 0
                 else f"error: {result.errors} failed",
             }
