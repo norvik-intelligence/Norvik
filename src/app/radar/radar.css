@@ -22,3 +22,36 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Motion (MOTION_INTENSITY 3: hover/active + one hero entrance) ──────── */
+
+.rr-press {
+  transition:
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rr-press:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rr-enter {
+    animation: rr-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .rr-enter-late {
+    animation: rr-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+  }
+  @keyframes rr-enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

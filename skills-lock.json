@@ -235,6 +235,12 @@
       "skillPath": "skills/analytics-tracking-testing/SKILL.md",
       "computedHash": "689acb3c7fb224cb84a7272f6a4900c5b5c4937f45c92e6af5e333d8858022af"
     },
+    "animate": {
+      "source": "delphi-ai/animate-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "ffe5d0020ae97e7af2eeab79a3cdb2d13da004cc998dff6817b071308923b71f"
+    },
     "anon": {
       "source": "glebis/claude-skills",
       "sourceType": "github",
@@ -924,6 +930,12 @@
       "sourceType": "github",
       "skillPath": "skills/deprecation-and-migration/SKILL.md",
       "computedHash": "55a559781ae92cacd6b75acd509e61b577c2660212d1808da2fbb8dbadc90196"
+    },
+    "design-motion-principles": {
+      "source": "kylezantos/design-motion-principles",
+      "sourceType": "github",
+      "skillPath": "skills/design-motion-principles/SKILL.md",
+      "computedHash": "6410c1844f511249f11f38d30d217cfecf7f595f45a868d74284b6380bab47d7"
     },
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
